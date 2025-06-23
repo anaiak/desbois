@@ -25,15 +25,12 @@ RUN apk add --no-cache gettext
 # Copier la configuration nginx comme template
 COPY nginx.conf /etc/nginx/nginx.conf.template
 
+# Copier le script de démarrage
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
 # Copier les fichiers buildés depuis le stage builder
 COPY --from=builder /app/dist /usr/share/nginx/html
-
-# Créer le script d'entrée pour Railway
-RUN echo '#!/bin/sh' > /docker-entrypoint.sh && \
-    echo 'export PORT=${PORT:-8080}' >> /docker-entrypoint.sh && \
-    echo 'envsubst "\$PORT" < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf' >> /docker-entrypoint.sh && \
-    echo 'exec nginx -g "daemon off;"' >> /docker-entrypoint.sh && \
-    chmod +x /docker-entrypoint.sh
 
 # Exposer le port dynamique pour Railway
 EXPOSE $PORT
@@ -43,4 +40,4 @@ LABEL maintainer="DesBois Photography"
 LABEL description="Site vitrine professionnel de photographie"
 
 # Commande de démarrage avec script d'entrée
-CMD ["/docker-entrypoint.sh"] 
+CMD ["/start.sh"] 
