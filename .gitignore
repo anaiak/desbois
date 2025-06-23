@@ -1,0 +1,68 @@
+# Dépendances
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Build output
+dist/
+build/
+out/
+
+# Vite cache
+.vite/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# TypeScript
+*.tsbuildinfo
+
+# ESLint cache
+.eslintcache
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Logs
+logs
+*.log
+
+# Temporary files
+.tmp/
+.temp/
+
+# Package manager locks (optionnel - décommentez si vous voulez ignorer)
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Images de test/développement (si applicable)
+/public/images/temp/
+/src/assets/temp/
+
+# Fichiers de configuration locale
+.env.local 

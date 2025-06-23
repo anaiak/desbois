@@ -1,0 +1,39 @@
+# Dépendances (seront installées dans le conteneur)
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output (sera généré dans le conteneur)
+dist
+build
+
+# Fichiers de développement
+.git
+.gitignore
+README.md
+.env*
+.vscode
+.idea
+
+# Fichiers Docker (éviter la récursion)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Fichiers de test et développement
+coverage
+.nyc_output
+*.log
+
+# Fichiers OS
+.DS_Store
+Thumbs.db
+
+# Fichiers temporaires
+.tmp
+.temp
+
+# Cache
+.cache
+.vite 

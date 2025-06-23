@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  desbois-photography:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: desbois-photography-site
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      # Pour HTTPS avec un reverse proxy (ex: Traefik, nginx proxy)
+      # - "443:443"
+    
+    # Variables d'environnement pour la production
+    environment:
+      - NODE_ENV=production
+    
+    # Volumes pour les logs (optionnel)
+    volumes:
+      - ./logs:/var/log/nginx
+      # Si vous voulez persister les images uploadées
+      # - ./uploads:/usr/share/nginx/html/images/uploads
+    
+    # Configuration réseau
+    networks:
+      - desbois-network
+    
+    # Healthcheck pour vérifier que le conteneur fonctionne
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    
+    # Labels pour la documentation et le monitoring
+    labels:
+      - "com.desbois.service=photography-website"
+      - "com.desbois.environment=production"
+      - "com.desbois.version=1.0.0"
+
+networks:
+  desbois-network:
+    driver: bridge
+
+# Exemple avec reverse proxy (à décommenter si besoin)
+# services:
+#   reverse-proxy:
+#     image: traefik:v2.9
+#     container_name: traefik
+#     restart: unless-stopped
+#     ports:
+#       - "80:80"
+#       - "443:443"
+#       - "8080:8080"  # Dashboard Traefik
+#     volumes:
+#       - /var/run/docker.sock:/var/run/docker.sock:ro
+#       - ./traefik.yml:/etc/traefik/traefik.yml:ro
+#       - ./certs:/certs
+#     networks:
+#       - desbois-network 
