@@ -39,6 +39,7 @@ Thumbs.db
 
 # TypeScript
 *.tsbuildinfo
+*.d.ts.map
 
 # ESLint cache
 .eslintcache
