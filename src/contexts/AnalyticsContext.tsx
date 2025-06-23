@@ -10,7 +10,7 @@ interface AnalyticsEvent {
 
 interface AnalyticsContextType {
   trackEvent: (event: AnalyticsEvent) => void;
-  trackConversion: (type: 'booking' | 'contact' | 'portfolio_view') => void;
+  trackConversion: (type: 'booking' | 'contact' | 'portfolio_view' | 'portfolio_modal_view' | 'pricing_details_view') => void;
 }
 
 const AnalyticsContext = createContext<AnalyticsContextType | undefined>(undefined);
@@ -33,7 +33,7 @@ export const AnalyticsProvider: React.FC<{ children: ReactNode }> = ({ children 
     }
   };
 
-  const trackConversion = (type: 'booking' | 'contact' | 'portfolio_view') => {
+  const trackConversion = (type: 'booking' | 'contact' | 'portfolio_view' | 'portfolio_modal_view' | 'pricing_details_view') => {
     const conversionEvents = {
       booking: {
         action: 'click_booking_cta',
@@ -51,6 +51,18 @@ export const AnalyticsProvider: React.FC<{ children: ReactNode }> = ({ children 
         action: 'view_portfolio',
         category: 'engagement',
         label: 'Portfolio complet',
+        value: 1,
+      },
+      portfolio_modal_view: {
+        action: 'view_portfolio_modal',
+        category: 'engagement',
+        label: 'Vue détaillée portfolio',
+        value: 1,
+      },
+      pricing_details_view: {
+        action: 'view_pricing_details',
+        category: 'engagement',
+        label: 'Détails tarification',
         value: 1,
       },
     };
