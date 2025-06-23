@@ -9,13 +9,14 @@ services:
     container_name: desbois-photography-site
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "${PORT:-8080}:${PORT:-8080}"
       # Pour HTTPS avec un reverse proxy (ex: Traefik, nginx proxy)
       # - "443:443"
     
     # Variables d'environnement pour la production
     environment:
       - NODE_ENV=production
+      - PORT=${PORT:-8080}
     
     # Volumes pour les logs (optionnel)
     volumes:
@@ -29,7 +30,7 @@ services:
     
     # Healthcheck pour vérifier que le conteneur fonctionne
     healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost"]
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:${PORT:-8080}"]
       interval: 30s
       timeout: 10s
       retries: 3
